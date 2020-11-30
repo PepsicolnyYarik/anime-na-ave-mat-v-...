@@ -1,24 +1,29 @@
-﻿#include <locale.h>
 #include <stdio.h>
 #include <windows.h>
-#define size 100
+#include <malloc.h>
 
 int main()
 {
-	setlocale(LC_ALL, "Rus");
-	char mas[size];
-	int i = 0,n=0,dlina,max=0,start=0,temp,flag=0;
-	do 
+	system("chcp 1251");
+	system("cls");
+	char *mas;
+	int i = 0, n = 0, dlina, max = 0, start = 0, temp,m;
+	printf("Введите длинну строку\n");
+	scanf_s("%d", &m);
+	mas = (char*)malloc(m + 1 * sizeof(char));
+	do
 	{
-		printf("Введите строку без знаков препинания(до 100 символов)\n");      // проверка на ввод
-		fgets(mas, 100, stdin);
+		printf("Введите строку без знаков препинания:\n");      // проверка на ввод
+		fgets(mas, m+1, stdin);
 		system("cls");
 	} while (mas[0] == '\n');
-	for (dlina = 0; mas[dlina] != '\n'; dlina++); // циклом находим длину введенной строки
+	for (dlina = 0; mas[dlina] != '\0'; dlina++); // циклом находим длину введенной строки
+	printf("Строка:\n");
+	puts(mas);
 	printf("Длина введенной строки %d\n", dlina);
 	for (int i = 0; i < dlina; i++)
 	{
-		if (mas[i] != ' ' )
+		if (mas[i] != ' ')
 		{
 			n++;
 		}
@@ -34,12 +39,12 @@ int main()
 	}
 	for (i = start; i < dlina; i++)
 	{
-		if (i + max + 1 < dlina && max!=dlina)  // добавляем исключение: если слово одно в строке, то символы не смещаются
+		if (i + max + 1 < dlina && max != dlina)  // добавляем исключение: если слово одно в строке, то символы не смещаются
 		{
 			temp = mas[i];
 			mas[i] = mas[i + max + 1];         // смещаем символы
 			mas[i + max + 1] = temp;
-		} 
+		}
 		if (max == dlina)                      // если слово одно в строке, то заканчиваем строку на 0 элементе
 		{
 			mas[0] = '\0';
